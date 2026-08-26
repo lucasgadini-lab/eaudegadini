@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EAU DE GADINI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Jost:wght@300;400&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  /* Cores fixas — não mudam com modo escuro */
+  :root,
+  :root[data-theme],
+  @media (prefers-color-scheme: dark) { }
+
+  html {
+    background: #EDE8DF;
+  }
+
+  body {
+    background-color: #EDE8DF;
+    color: #2C1A1F;
+    font-family: 'Jost', sans-serif;
+    font-weight: 300;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 3rem 1.25rem 4rem;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  /* Sobrescreve modo escuro do iOS/Safari explicitamente */
+  @media (prefers-color-scheme: dark) {
+    html { background: #EDE8DF !important; }
+    body { background-color: #EDE8DF !important; color: #2C1A1F !important; }
+  }
+
+  .page {
+    width: 100%;
+    max-width: 420px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .avatar-wrap {
+    width: 96px;
+    height: 96px;
+    border-radius: 50%;
+    border: 1.5px solid rgba(107,39,55,0.2);
+    overflow: hidden;
+    margin-bottom: 1.1rem;
+    background: #F7F4EF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .avatar-wrap img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .avatar-placeholder {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2rem;
+    font-weight: 300;
+    color: #6B2737;
+    letter-spacing: 0.05em;
+  }
+
+  .brand {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-size: 1.65rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: #2C1A1F;
+    text-align: center;
+    margin-bottom: 0.35rem;
+  }
+  .tagline {
+    font-size: 0.78rem;
+    letter-spacing: 0.14em;
+    color: #8A7A75;
+    text-align: center;
+    margin-bottom: 2.2rem;
+    font-weight: 300;
+  }
+
+  .divider {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin: 1.6rem 0 1rem;
+  }
+  .divider::before, .divider::after {
+    content: '';
+    flex: 1;
+    height: 0.5px;
+    background: rgba(107,39,55,0.2);
+  }
+  .divider span {
+    font-size: 0.63rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #8A7A75;
+    white-space: nowrap;
+  }
+
+  .links-group { width: 100%; display: flex; flex-direction: column; gap: 0.6rem; }
+
+  .link-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    width: 100%;
+    padding: 0.85rem 1.15rem;
+    border: 0.5px solid rgba(107,39,55,0.2);
+    border-radius: 4px;
+    background: #F7F4EF;
+    color: #2C1A1F;
+    text-decoration: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .link-btn .icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: #EDE8DF;
+    border: 0.5px solid rgba(107,39,55,0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .link-btn .icon svg { width: 16px; height: 16px; fill: #6B2737; }
+  .link-btn .label { flex: 1; font-size: 0.82rem; letter-spacing: 0.07em; font-weight: 400; color: #2C1A1F; }
+  .link-btn .sub { font-size: 0.69rem; color: #8A7A75; letter-spacing: 0.04em; }
+
+  .produtos-grid {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.65rem;
+  }
+  .produto-card {
+    border: 0.5px solid rgba(107,39,55,0.2);
+    border-radius: 4px;
+    background: #F7F4EF;
+    overflow: hidden;
+    text-decoration: none;
+    color: #2C1A1F;
+    display: flex;
+    flex-direction: column;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .produto-thumb {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    background: #EDE8DF;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 0.5px solid rgba(107,39,55,0.2);
+  }
+  .produto-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .produto-thumb .sem-foto { font-size: 2rem; opacity: 0.2; }
+  .produto-info { padding: 0.6rem 0.7rem 0.75rem; display: flex; flex-direction: column; gap: 0.25rem; flex: 1; }
+  .produto-nome { font-size: 0.75rem; font-weight: 400; letter-spacing: 0.04em; line-height: 1.4; color: #2C1A1F; }
+  .produto-cta { font-size: 0.62rem; letter-spacing: 0.12em; text-transform: uppercase; color: #6B2737; margin-top: 0.2rem; }
+  .produtos-loading { font-size: 0.75rem; color: #8A7A75; letter-spacing: 0.08em; text-align: center; padding: 1rem; width: 100%; }
+
+  .cupons-group { width: 100%; display: flex; flex-direction: column; gap: 0.6rem; }
+  .cupom-card {
+    width: 100%;
+    border: 0.5px solid rgba(107,39,55,0.2);
+    border-radius: 4px;
+    background: #F7F4EF;
+    padding: 0.9rem 1.15rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+  }
+  .cupom-card .marca { font-size: 0.63rem; letter-spacing: 0.2em; text-transform: uppercase; color: #8A7A75; }
+  .cupom-card .codigo-wrap { display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; }
+  .cupom-card .codigo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem;
+    font-weight: 400;
+    letter-spacing: 0.12em;
+    color: #6B2737;
+  }
+  .copy-btn {
+    font-family: 'Jost', sans-serif;
+    font-size: 0.63rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #6B2737;
+    background: none;
+    border: 0.5px solid rgba(107,39,55,0.25);
+    border-radius: 3px;
+    padding: 0.3rem 0.6rem;
+    cursor: pointer;
+    flex-shrink: 0;
+    -webkit-appearance: none;
+  }
+  .copy-btn.copiado { color: #4a7c59; border-color: #4a7c59; }
+  .marcas-lista { font-size: 0.69rem; color: #8A7A75; letter-spacing: 0.03em; line-height: 1.65; }
+
+  .footer { margin-top: 2.8rem; text-align: center; }
+  .footer .assinatura {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 0.82rem;
+    color: #8A7A75;
+    letter-spacing: 0.05em;
+    line-height: 1.7;
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- FOTO — quando tiver: apague o <span> e descomente o <img> -->
+  <div class="avatar-wrap">
+    <!-- <img src="gadini.jpg" alt="Gadini"> -->
+    <span class="avatar-placeholder">G</span>
+  </div>
+
+  <h1 class="brand">Eau de Gadini</h1>
+  <p class="tagline">Porque, no fim... nunca foi só sobre cheiro.</p>
+
+  <!-- REDES SOCIAIS -->
+  <div class="divider"><span>Redes sociais</span></div>
+  <div class="links-group">
+
+    <a href="https://www.tiktok.com/@eaudegadini" class="link-btn" target="_blank" rel="noopener">
+      <span class="icon">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.25 8.25 0 0 0 4.84 1.55V6.79a4.85 4.85 0 0 1-1.07-.1z"/></svg>
+      </span>
+      <span class="label">TikTok<br><span class="sub">@eaudegadini</span></span>
+    </a>
+
+    <a href="https://www.instagram.com/eaudegadini" class="link-btn" target="_blank" rel="noopener">
+      <span class="icon">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg>
+      </span>
+      <span class="label">Instagram<br><span class="sub">@eaudegadini</span></span>
+    </a>
+
+  </div>
+
+  <!-- AFILIADOS -->
+  <div class="divider"><span>Compre com desconto</span></div>
+  <div class="links-group">
+
+    <a href="SEU-LINK-AFILIADO-MERCADO-LIVRE" class="link-btn" target="_blank" rel="noopener">
+      <span class="icon">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm-.75 17.25v-3H8.25L12 9l3.75 5.25h-3v3h-1.5z"/></svg>
+      </span>
+      <span class="label">Perfumes no Mercado Livre<br><span class="sub">Link de afiliado — sem custo extra pra você</span></span>
+    </a>
+
+    <a href="SEU-LINK-AFILIADO-SHOPEE" class="link-btn" target="_blank" rel="noopener">
+      <span class="icon">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19.94 7.01h-2.32A5.618 5.618 0 0 0 12.06 2a5.619 5.619 0 0 0-5.56 5.01H4.06C2.71 7.01 2 7.75 2 9.06v10.88C2 21.25 2.71 22 4.06 22h15.88C21.29 22 22 21.25 22 19.94V9.06c0-1.31-.71-2.05-2.06-2.05zM12.06 4c1.84 0 3.37 1.31 3.72 3.01H8.34A3.78 3.78 0 0 1 12.06 4zm7.94 15.94H4V9.01h16v10.93z"/></svg>
+      </span>
+      <span class="label">Perfumes na Shopee<br><span class="sub">Link de afiliado — sem custo extra pra você</span></span>
+    </a>
+
+  </div>
+
+  <!-- TIKTOK SHOP — editado via produtos.json -->
+  <div class="divider"><span>TikTok Shop</span></div>
+  <div class="produtos-grid" id="produtos-grid">
+    <p class="produtos-loading">Carregando produtos...</p>
+  </div>
+
+  <!-- CUPONS -->
+  <div class="divider"><span>Cupons de desconto</span></div>
+  <div class="cupons-group">
+
+    <div class="cupom-card">
+      <span class="marca">Reserva</span>
+      <div class="codigo-wrap">
+        <span class="codigo">RSV7523</span>
+        <button class="copy-btn" onclick="copiar(this,'RSV7523')">Copiar</button>
+      </div>
+      <span class="marcas-lista">Válido em Reserva · Reserva Go · Reserva Mini</span>
+    </div>
+
+    <div class="cupom-card">
+      <span class="marca">Grupo Azzas 2154</span>
+      <div class="codigo-wrap">
+        <span class="codigo">30142azzas</span>
+        <button class="copy-btn" onclick="copiar(this,'30142azzas')">Copiar</button>
+      </div>
+      <span class="marcas-lista">Farm Rio · Farm Rio ETC · Animale · Animale Jeans · Foxton · Hering · Hering Intimates · Hering Kids · Hering Sports · Arezzo · Schutz · Anacapri · Vans · Vicenza · Brizza Arezzo · Maria Filó · Fábula · Cris Barros · Carol Bassi · Off Premium · ZZ Mall</span>
+    </div>
+
+  </div>
+
+  <div class="footer">
+    <p class="assinatura">Porque, no fim...<br>nunca foi só sobre cheiro.</p>
+  </div>
+
+</div>
+
+<script>
+function copiar(btn, codigo) {
+  navigator.clipboard.writeText(codigo).then(function() {
+    btn.textContent = 'Copiado!';
+    btn.classList.add('copiado');
+    setTimeout(function() {
+      btn.textContent = 'Copiar';
+      btn.classList.remove('copiado');
+    }, 2000);
+  });
+}
+
+fetch('produtos.json')
+  .then(function(r) { return r.json(); })
+  .then(function(produtos) {
+    var grid = document.getElementById('produtos-grid');
+    if (!produtos.length) { grid.innerHTML = ''; return; }
+    grid.innerHTML = produtos.map(function(p) {
+      var thumb = p.foto
+        ? '<img src="' + p.foto + '" alt="' + p.nome + '">'
+        : '<span class="sem-foto">&#128081;</span>';
+      return '<a href="' + p.link + '" class="produto-card" target="_blank" rel="noopener">'
+        + '<div class="produto-thumb">' + thumb + '</div>'
+        + '<div class="produto-info">'
+        + '<span class="produto-nome">' + p.nome + '</span>'
+        + '<span class="produto-cta">Ver no TikTok Shop</span>'
+        + '</div></a>';
+    }).join('');
+  })
+  .catch(function() {
+    document.getElementById('produtos-grid').innerHTML = '';
+  });
+</script>
+</body>
+</html>

@@ -26,28 +26,28 @@
     html { background: #EDE8DF !important; }
     body { background-color: #EDE8DF !important; color: #2C1A1F !important; }
   }
+
   .page { width: 100%; max-width: 420px; display: flex; flex-direction: column; align-items: center; }
 
+  /* AVATAR */
   .avatar-wrap {
     width: 96px; height: 96px; border-radius: 50%;
-    border: 1.5px solid rgba(107,39,55,0.2);
-    overflow: hidden; margin-bottom: 1.1rem;
-    background: #F7F4EF; display: flex; align-items: center;
-    justify-content: center; flex-shrink: 0;
+    border: 1.5px solid rgba(107,39,55,0.2); overflow: hidden;
+    margin-bottom: 1.1rem; background: #F7F4EF;
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
   }
   .avatar-wrap img { width: 100%; height: 100%; object-fit: cover; object-position: center center; display: block; }
 
-  .brand {
-    font-family: 'Cormorant Garamond', serif; font-weight: 300;
-    font-size: 1.65rem; letter-spacing: 0.25em; text-transform: uppercase;
-    color: #2C1A1F; text-align: center; margin-bottom: 0.35rem;
-  }
+  /* HEADER */
+  .brand { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-size: 1.65rem; letter-spacing: 0.25em; text-transform: uppercase; color: #2C1A1F; text-align: center; margin-bottom: 0.35rem; }
   .tagline { font-size: 0.78rem; letter-spacing: 0.14em; color: #8A7A75; text-align: center; margin-bottom: 2.2rem; font-weight: 300; }
 
+  /* DIVISOR */
   .divider { width: 100%; display: flex; align-items: center; gap: 0.75rem; margin: 1.6rem 0 1rem; }
   .divider::before, .divider::after { content: ''; flex: 1; height: 0.5px; background: rgba(107,39,55,0.2); }
   .divider span { font-size: 0.63rem; letter-spacing: 0.2em; text-transform: uppercase; color: #8A7A75; white-space: nowrap; }
 
+  /* BOTÕES DE LINK simples */
   .links-group { width: 100%; display: flex; flex-direction: column; gap: 0.6rem; }
   .link-btn {
     display: flex; align-items: center; gap: 0.85rem; width: 100%;
@@ -61,29 +61,74 @@
     align-items: center; justify-content: center; flex-shrink: 0; overflow: hidden;
   }
   .link-btn .icon svg { width: 16px; height: 16px; fill: #6B2737; }
-  .link-btn .icon img { width: 20px; height: 20px; object-fit: contain; }
   .link-btn .label { flex: 1; font-size: 0.82rem; letter-spacing: 0.07em; font-weight: 400; color: #2C1A1F; }
   .link-btn .sub { font-size: 0.69rem; color: #8A7A75; letter-spacing: 0.04em; }
 
-  .produtos-grid { width: 100%; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.65rem; }
+  /* BOTÕES EXPANSÍVEIS (Mercado Livre e TikTok Shop) */
+  .expand-group { width: 100%; display: flex; flex-direction: column; gap: 0.6rem; }
+
+  .expand-btn {
+    display: flex; align-items: center; gap: 0.85rem; width: 100%;
+    padding: 0.85rem 1.15rem; border: 0.5px solid rgba(107,39,55,0.2);
+    border-radius: 4px; background: #F7F4EF; color: #2C1A1F;
+    cursor: pointer; -webkit-tap-highlight-color: transparent;
+    font-family: 'Jost', sans-serif; font-size: 0.82rem; text-align: left;
+    transition: border-color 0.18s;
+  }
+  .expand-btn.aberto { border-color: rgba(107,39,55,0.45); border-bottom-left-radius: 0; border-bottom-right-radius: 0; }
+  .expand-btn .icon {
+    width: 32px; height: 32px; border-radius: 50%; background: #EDE8DF;
+    border: 0.5px solid rgba(107,39,55,0.2); display: flex;
+    align-items: center; justify-content: center; flex-shrink: 0; overflow: hidden;
+  }
+  .expand-btn .icon svg { width: 16px; height: 16px; fill: #6B2737; }
+  .expand-btn .btn-label { flex: 1; }
+  .expand-btn .btn-titulo { font-size: 0.82rem; letter-spacing: 0.07em; font-weight: 400; color: #2C1A1F; display: block; }
+  .expand-btn .btn-sub { font-size: 0.69rem; color: #8A7A75; letter-spacing: 0.04em; display: block; }
+  .expand-btn .chevron { font-size: 0.7rem; color: #8A7A75; transition: transform 0.25s; flex-shrink: 0; }
+  .expand-btn.aberto .chevron { transform: rotate(180deg); }
+
+  /* PAINEL DE PRODUTOS EXPANSÍVEL */
+  .produtos-painel {
+    width: 100%;
+    border: 0.5px solid rgba(107,39,55,0.45);
+    border-top: none;
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+    background: #F7F4EF;
+    overflow: hidden;
+    max-height: 0;
+    transition: max-height 0.35s ease, padding 0.2s;
+    padding: 0 0.65rem;
+  }
+  .produtos-painel.aberto { max-height: 2000px; padding: 0.65rem; }
+
+  .produtos-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.55rem;
+    width: 100%;
+  }
+
   .produto-card {
     border: 0.5px solid rgba(107,39,55,0.2); border-radius: 4px;
-    background: #F7F4EF; overflow: hidden; text-decoration: none;
+    background: #EDE8DF; overflow: hidden; text-decoration: none;
     color: #2C1A1F; display: flex; flex-direction: column;
     -webkit-tap-highlight-color: transparent;
   }
   .produto-thumb {
-    width: 100%; aspect-ratio: 1/1; background: #EDE8DF; overflow: hidden;
+    width: 100%; aspect-ratio: 1/1; background: #E5E0D6; overflow: hidden;
     display: flex; align-items: center; justify-content: center;
-    border-bottom: 0.5px solid rgba(107,39,55,0.2);
+    border-bottom: 0.5px solid rgba(107,39,55,0.15);
   }
   .produto-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
-  .produto-thumb .sem-foto { font-size: 2rem; opacity: 0.2; }
-  .produto-info { padding: 0.6rem 0.7rem 0.75rem; display: flex; flex-direction: column; gap: 0.25rem; flex: 1; }
-  .produto-nome { font-size: 0.75rem; font-weight: 400; letter-spacing: 0.04em; line-height: 1.4; color: #2C1A1F; }
-  .produto-cta { font-size: 0.62rem; letter-spacing: 0.12em; text-transform: uppercase; color: #6B2737; margin-top: 0.2rem; }
-  .produtos-loading { font-size: 0.75rem; color: #8A7A75; letter-spacing: 0.08em; text-align: center; padding: 1rem; width: 100%; }
+  .produto-thumb .sem-foto { font-size: 1.8rem; opacity: 0.2; }
+  .produto-info { padding: 0.5rem 0.6rem 0.65rem; display: flex; flex-direction: column; gap: 0.2rem; flex: 1; }
+  .produto-nome { font-size: 0.72rem; font-weight: 400; letter-spacing: 0.03em; line-height: 1.4; color: #2C1A1F; }
+  .produto-cta { font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; color: #6B2737; margin-top: 0.15rem; }
+  .produtos-vazio { font-size: 0.73rem; color: #8A7A75; text-align: center; padding: 1rem 0; width: 100%; letter-spacing: 0.05em; }
 
+  /* CUPONS */
   .cupons-group { width: 100%; display: flex; flex-direction: column; gap: 0.6rem; }
   .cupom-card {
     width: 100%; border: 0.5px solid rgba(107,39,55,0.2); border-radius: 4px;
@@ -99,17 +144,13 @@
     padding: 0.3rem 0.6rem; cursor: pointer; flex-shrink: 0; -webkit-appearance: none;
   }
   .copy-btn.copiado { color: #4a7c59; border-color: #4a7c59; }
-  .marcas-lista { font-size: 0.69rem; color: #8A7A75; letter-spacing: 0.03em; line-height: 1.65; }
-  .marcas-lista a {
-    color: #8A7A75;
-    text-decoration: none;
-    border-bottom: 0.5px solid rgba(107,39,55,0.25);
-    transition: color 0.15s, border-color 0.15s;
-  }
-  .marcas-lista a:hover { color: #6B2737; border-color: #6B2737; }
+  .marcas-lista { font-size: 0.69rem; color: #8A7A75; letter-spacing: 0.03em; line-height: 1.75; }
+  .marcas-lista a { color: #8A7A75; text-decoration: none; border-bottom: 0.5px solid rgba(107,39,55,0.25); }
+  .marcas-lista a:active { color: #6B2737; }
 
+  /* RODAPÉ */
   .footer { margin-top: 2.8rem; text-align: center; }
-  .footer .assinatura { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 0.82rem; color: #8A7A75; letter-spacing: 0.05em; line-height: 1.7; }
+  .footer .assinatura { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 0.9rem; color: #8A7A75; letter-spacing: 0.05em; line-height: 1.7; }
 </style>
 </head>
 <body>
@@ -122,60 +163,90 @@
   <h1 class="brand">Eau de Gadini</h1>
   <p class="tagline">Porque, no fim... nunca foi só sobre cheiro.</p>
 
+  <!-- REDES SOCIAIS -->
   <div class="divider"><span>Redes sociais</span></div>
   <div class="links-group">
+
     <a href="https://www.tiktok.com/@eaudegadini" class="link-btn" target="_blank" rel="noopener">
-      <span class="icon">
-        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.25 8.25 0 0 0 4.84 1.55V6.79a4.85 4.85 0 0 1-1.07-.1z"/></svg>
-      </span>
+      <span class="icon"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.25 8.25 0 0 0 4.84 1.55V6.79a4.85 4.85 0 0 1-1.07-.1z"/></svg></span>
       <span class="label">TikTok<br><span class="sub">@eaudegadini</span></span>
     </a>
+
     <a href="https://www.instagram.com/eaudegadini" class="link-btn" target="_blank" rel="noopener">
-      <span class="icon">
-        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg>
-      </span>
+      <span class="icon"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg></span>
       <span class="label">Instagram<br><span class="sub">@eaudegadini</span></span>
     </a>
+
     <a href="https://www.youtube.com/@EaudeGadini" class="link-btn" target="_blank" rel="noopener">
-      <span class="icon">
-        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M23.495 6.205a3.007 3.007 0 0 0-2.088-2.088c-1.87-.501-9.396-.501-9.396-.501s-7.507-.01-9.396.501A3.007 3.007 0 0 0 .527 6.205a31.247 31.247 0 0 0-.522 5.805 31.247 31.247 0 0 0 .522 5.783 3.007 3.007 0 0 0 2.088 2.088c1.868.502 9.396.502 9.396.502s7.506 0 9.396-.502a3.007 3.007 0 0 0 2.088-2.088 31.247 31.247 0 0 0 .5-5.783 31.247 31.247 0 0 0-.5-5.805zM9.609 15.601V8.408l6.264 3.602z" fill="#6B2737"/></svg>
-      </span>
+      <span class="icon"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M23.495 6.205a3.007 3.007 0 0 0-2.088-2.088c-1.87-.501-9.396-.501-9.396-.501s-7.507-.01-9.396.501A3.007 3.007 0 0 0 .527 6.205a31.247 31.247 0 0 0-.522 5.805 31.247 31.247 0 0 0 .522 5.783 3.007 3.007 0 0 0 2.088 2.088c1.868.502 9.396.502 9.396.502s7.506 0 9.396-.502a3.007 3.007 0 0 0 2.088-2.088 31.247 31.247 0 0 0 .5-5.783 31.247 31.247 0 0 0-.5-5.805zM9.609 15.601V8.408l6.264 3.602z"/></svg></span>
       <span class="label">YouTube<br><span class="sub">@EaudeGadini</span></span>
     </a>
+
   </div>
 
+  <!-- COMPRE COM DESCONTO -->
   <div class="divider"><span>Compre com desconto</span></div>
-  <div class="links-group">
-    <a href="SEU-LINK-AFILIADO-MERCADO-LIVRE" class="link-btn" target="_blank" rel="noopener">
+  <div class="expand-group">
+
+    <!-- Shopee — link direto para vitrine -->
+    <a href="SEU-LINK-VITRINE-SHOPEE" class="link-btn" target="_blank" rel="noopener">
       <span class="icon">
-        <!-- Logo Mercado Livre -->
-        <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" width="22" height="22">
-          <ellipse cx="24" cy="24" rx="24" ry="24" fill="#FFE600"/>
-          <path d="M24 10c-3.9 0-7 3.8-7 8.5S20.1 27 24 27s7-3.8 7-8.5S27.9 10 24 10z" fill="#333"/>
-          <path d="M13 30h22l-2 8H15l-2-8z" fill="#333"/>
-        </svg>
-      </span>
-      <span class="label">Mercado Livre<br><span class="sub">Perfumes com os melhores preços</span></span>
-    </a>
-    <a href="SEU-LINK-AFILIADO-SHOPEE" class="link-btn" target="_blank" rel="noopener">
-      <span class="icon">
-        <!-- Logo Shopee -->
         <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" width="22" height="22">
           <circle cx="24" cy="24" r="24" fill="#EE4D2D"/>
           <path d="M24 8c-4.1 0-7.4 3.1-7.9 7H15a1 1 0 0 0-1 1v16a1 1 0 0 0 1 1h18a1 1 0 0 0 1-1V16a1 1 0 0 0-1-1h-1.1C31.4 11.1 28.1 8 24 8zm0 2.5c2.8 0 5.1 2 5.5 4.5h-11c.4-2.5 2.7-4.5 5.5-4.5zM16 17h16v14H16V17z" fill="white"/>
         </svg>
       </span>
-      <span class="label">Shopee<br><span class="sub">Melhores itens e acessórios de perfumaria</span></span>
+      <span class="label">Shopee<br><span class="sub">Minha vitrine de perfumes e acessórios</span></span>
     </a>
+
+    <!-- Mercado Livre — expansível -->
+    <div class="expand-wrap">
+      <button class="expand-btn" onclick="expandir(this,'painel-ml')" aria-expanded="false">
+        <span class="icon">
+          <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" width="22" height="22">
+            <ellipse cx="24" cy="24" rx="24" ry="24" fill="#FFE600"/>
+            <path d="M24 10c-3.9 0-7 3.8-7 8.5S20.1 27 24 27s7-3.8 7-8.5S27.9 10 24 10z" fill="#333"/>
+            <path d="M13 30h22l-2 8H15l-2-8z" fill="#333"/>
+          </svg>
+        </span>
+        <span class="btn-label">
+          <span class="btn-titulo">Mercado Livre</span>
+          <span class="btn-sub">Perfumes selecionados — clique para ver</span>
+        </span>
+        <span class="chevron">▼</span>
+      </button>
+      <div class="produtos-painel" id="painel-ml">
+        <div class="produtos-grid" id="grid-ml">
+          <p class="produtos-vazio">Carregando...</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- TikTok Shop — expansível -->
+    <div class="expand-wrap">
+      <button class="expand-btn" onclick="expandir(this,'painel-tiktok')" aria-expanded="false">
+        <span class="icon">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.25 8.25 0 0 0 4.84 1.55V6.79a4.85 4.85 0 0 1-1.07-.1z" fill="#6B2737"/></svg>
+        </span>
+        <span class="btn-label">
+          <span class="btn-titulo">TikTok Shop</span>
+          <span class="btn-sub">Produtos em destaque — clique para ver</span>
+        </span>
+        <span class="chevron">▼</span>
+      </button>
+      <div class="produtos-painel" id="painel-tiktok">
+        <div class="produtos-grid" id="grid-tiktok">
+          <p class="produtos-vazio">Carregando...</p>
+        </div>
+      </div>
+    </div>
+
   </div>
 
-  <div class="divider"><span>TikTok Shop</span></div>
-  <div class="produtos-grid" id="produtos-grid">
-    <p class="produtos-loading">Carregando produtos...</p>
-  </div>
-
+  <!-- CUPONS -->
   <div class="divider"><span>Cupons de desconto</span></div>
   <div class="cupons-group">
+
     <div class="cupom-card">
       <span class="marca">Reserva</span>
       <div class="codigo-wrap">
@@ -183,12 +254,13 @@
         <button class="copy-btn" onclick="copiar(this,'RSV7523')">Copiar</button>
       </div>
       <span class="marcas-lista">
-Válido em 
-<a href="https://www.usereserva.com/?bl_pr=RSV7523" target="_blank" rel="noopener">Reserva</a> · 
-<a href="https://www.usereserva.com/calcados?bl_pr=RSV7523" target="_blank" rel="noopener">Reserva Go</a> · 
-<a href="https://www.usereserva.com/mini?bl_pr=RSV7523" target="_blank" rel="noopener">Reserva Mini</a>
-</span>
+        Válido em
+        <a href="https://www.usereserva.com/?bl_pr=RSV7523" target="_blank" rel="noopener">Reserva</a> ·
+        <a href="https://www.usereserva.com/calcados?bl_pr=RSV7523" target="_blank" rel="noopener">Reserva Go</a> ·
+        <a href="https://www.usereserva.com/mini?bl_pr=RSV7523" target="_blank" rel="noopener">Reserva Mini</a>
+      </span>
     </div>
+
     <div class="cupom-card">
       <span class="marca">Grupo Azzas 2154</span>
       <div class="codigo-wrap">
@@ -196,36 +268,39 @@ Válido em
         <button class="copy-btn" onclick="copiar(this,'30142azzas')">Copiar</button>
       </div>
       <span class="marcas-lista">
-<a href="https://www.farmrio.com.br" target="_blank" rel="noopener">Farm Rio</a> · 
-<a href="https://www.farmrio.com.br/farm-etc" target="_blank" rel="noopener">Farm Rio ETC</a> · 
-<a href="https://www.animale.com.br" target="_blank" rel="noopener">Animale</a> · 
-<a href="https://www.animale.com.br/animale-jeans" target="_blank" rel="noopener">Animale Jeans</a> · 
-<a href="https://www.foxton.com.br" target="_blank" rel="noopener">Foxton</a> · 
-<a href="https://www.ciahering.com.br" target="_blank" rel="noopener">Hering</a> · 
-<a href="https://www.hering.com.br/intimates" target="_blank" rel="noopener">Hering Intimates</a> · 
-<a href="https://www.hering.com.br/kids" target="_blank" rel="noopener">Hering Kids</a> · 
-<a href="https://www.hering.com.br/sports" target="_blank" rel="noopener">Hering Sports</a> · 
-<a href="https://www.arezzo.com.br" target="_blank" rel="noopener">Arezzo</a> · 
-<a href="https://www.schutz.com.br" target="_blank" rel="noopener">Schutz</a> · 
-<a href="https://www.anacapri.com.br" target="_blank" rel="noopener">Anacapri</a> · 
-<a href="https://www.vans.com.br" target="_blank" rel="noopener">Vans</a> · 
-<a href="https://www.vicenza.com.br" target="_blank" rel="noopener">Vicenza</a> · 
-<a href="https://www.mariafilo.com.br" target="_blank" rel="noopener">Maria Filó</a> · 
-<a href="https://www.fabula.com.br" target="_blank" rel="noopener">Fábula</a> · 
-<a href="https://www.crisbarros.com.br" target="_blank" rel="noopener">Cris Barros</a> · 
-<a href="https://www.carolbassi.com.br" target="_blank" rel="noopener">Carol Bassi</a> · 
-<a href="https://www.offpremium.com.br" target="_blank" rel="noopener">Off Premium</a> · 
-<a href="https://www.zzmall.com.br" target="_blank" rel="noopener">ZZ Mall</a>
-</span>
+        <a href="https://www.farmrio.com.br" target="_blank" rel="noopener">Farm Rio</a> ·
+        <a href="https://www.farmrio.com.br/farm-etc" target="_blank" rel="noopener">Farm Rio ETC</a> ·
+        <a href="https://www.animale.com.br" target="_blank" rel="noopener">Animale</a> ·
+        <a href="https://www.animale.com.br/animale-jeans" target="_blank" rel="noopener">Animale Jeans</a> ·
+        <a href="https://www.foxton.com.br" target="_blank" rel="noopener">Foxton</a> ·
+        <a href="https://www.ciahering.com.br" target="_blank" rel="noopener">Hering</a> ·
+        <a href="https://www.hering.com.br/intimates" target="_blank" rel="noopener">Hering Intimates</a> ·
+        <a href="https://www.hering.com.br/kids" target="_blank" rel="noopener">Hering Kids</a> ·
+        <a href="https://www.hering.com.br/sports" target="_blank" rel="noopener">Hering Sports</a> ·
+        <a href="https://www.arezzo.com.br" target="_blank" rel="noopener">Arezzo</a> ·
+        <a href="https://www.schutz.com.br" target="_blank" rel="noopener">Schutz</a> ·
+        <a href="https://www.anacapri.com.br" target="_blank" rel="noopener">Anacapri</a> ·
+        <a href="https://www.vans.com.br" target="_blank" rel="noopener">Vans</a> ·
+        <a href="https://www.vicenza.com.br" target="_blank" rel="noopener">Vicenza</a> ·
+        <a href="https://www.mariafilo.com.br" target="_blank" rel="noopener">Maria Filó</a> ·
+        <a href="https://www.fabula.com.br" target="_blank" rel="noopener">Fábula</a> ·
+        <a href="https://www.crisbarros.com.br" target="_blank" rel="noopener">Cris Barros</a> ·
+        <a href="https://www.carolbassi.com.br" target="_blank" rel="noopener">Carol Bassi</a> ·
+        <a href="https://www.offpremium.com.br" target="_blank" rel="noopener">Off Premium</a> ·
+        <a href="https://www.zzmall.com.br" target="_blank" rel="noopener">ZZ Mall</a>
+      </span>
     </div>
+
   </div>
 
   <div class="footer">
-    <p class="assinatura">Porque, no fim...<br>nunca foi só sobre cheiro.</p>
+    <p class="assinatura">Um beijo, um cheiro e até a próxima!</p>
   </div>
+
 </div>
 
 <script>
+// Copiar cupom
 function copiar(btn, codigo) {
   navigator.clipboard.writeText(codigo).then(function() {
     btn.textContent = 'Copiado!';
@@ -233,20 +308,46 @@ function copiar(btn, codigo) {
     setTimeout(function() { btn.textContent = 'Copiar'; btn.classList.remove('copiado'); }, 2000);
   });
 }
-fetch('produtos.json')
+
+// Expandir/recolher painel
+function expandir(btn, painelId) {
+  var painel = document.getElementById(painelId);
+  var aberto = painel.classList.contains('aberto');
+  painel.classList.toggle('aberto', !aberto);
+  btn.classList.toggle('aberto', !aberto);
+  btn.setAttribute('aria-expanded', !aberto);
+}
+
+// Renderizar grid de produtos
+function renderGrid(gridId, produtos, ctaTexto) {
+  var grid = document.getElementById(gridId);
+  if (!produtos || !produtos.length) {
+    grid.innerHTML = '<p class="produtos-vazio">Em breve...</p>';
+    return;
+  }
+  grid.innerHTML = produtos.map(function(p) {
+    var thumb = p.foto
+      ? '<img src="' + p.foto + '" alt="' + p.nome + '" loading="lazy">'
+      : '<span class="sem-foto">&#128081;</span>';
+    return '<a href="' + p.link + '" class="produto-card" target="_blank" rel="noopener">'
+      + '<div class="produto-thumb">' + thumb + '</div>'
+      + '<div class="produto-info">'
+      + '<span class="produto-nome">' + p.nome + '</span>'
+      + '<span class="produto-cta">' + ctaTexto + '</span>'
+      + '</div></a>';
+  }).join('');
+}
+
+// Carregar JSONs
+fetch('produtos-ml.json')
   .then(function(r) { return r.json(); })
-  .then(function(produtos) {
-    var grid = document.getElementById('produtos-grid');
-    if (!produtos.length) { grid.innerHTML = ''; return; }
-    grid.innerHTML = produtos.map(function(p) {
-      var thumb = p.foto ? '<img src="' + p.foto + '" alt="' + p.nome + '">' : '<span class="sem-foto">&#128081;</span>';
-      return '<a href="' + p.link + '" class="produto-card" target="_blank" rel="noopener">' +
-        '<div class="produto-thumb">' + thumb + '</div>' +
-        '<div class="produto-info"><span class="produto-nome">' + p.nome + '</span>' +
-        '<span class="produto-cta">Ver no TikTok Shop</span></div></a>';
-    }).join('');
-  })
-  .catch(function() { document.getElementById('produtos-grid').innerHTML = ''; });
+  .then(function(d) { renderGrid('grid-ml', d, 'Ver no Mercado Livre'); })
+  .catch(function() { renderGrid('grid-ml', [], ''); });
+
+fetch('produtos-tiktok.json')
+  .then(function(r) { return r.json(); })
+  .then(function(d) { renderGrid('grid-tiktok', d, 'Ver no TikTok Shop'); })
+  .catch(function() { renderGrid('grid-tiktok', [], ''); });
 </script>
 </body>
 </html>

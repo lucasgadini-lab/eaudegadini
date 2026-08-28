@@ -211,17 +211,6 @@
   <div class="divider"><span>Compre com desconto</span></div>
   <div class="compras-group">
 
-    <!-- Shopee vitrine -->
-    <a href="https://collshp.com/lucasgadini287?view=storefront" class="shopee-btn" target="_blank" rel="noopener">
-      <span class="icon">
-        <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" width="22" height="22">
-          <circle cx="24" cy="24" r="24" fill="#EE4D2D"/>
-          <path d="M24 8c-4.1 0-7.4 3.1-7.9 7H15a1 1 0 0 0-1 1v16a1 1 0 0 0 1 1h18a1 1 0 0 0 1-1V16a1 1 0 0 0-1-1h-1.1C31.4 11.1 28.1 8 24 8zm0 2.5c2.8 0 5.1 2 5.5 4.5h-11c.4-2.5 2.7-4.5 5.5-4.5zM16 17h16v14H16V17z" fill="white"/>
-        </svg>
-      </span>
-      <span class="label">Shopee — Minha Vitrine<br><span class="sub">Perfumes e acessórios selecionados</span></span>
-    </a>
-
     <!-- Mercado Livre — 3 listas -->
     <div class="ml-wrap">
       <div class="ml-titulo">
@@ -252,6 +241,17 @@
         </a>
       </div>
     </div>
+
+    <!-- Shopee vitrine -->
+    <a href="https://collshp.com/lucasgadini287?view=storefront" class="shopee-btn" target="_blank" rel="noopener">
+      <span class="icon">
+        <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" width="22" height="22">
+          <circle cx="24" cy="24" r="24" fill="#EE4D2D"/>
+          <path d="M24 8c-4.1 0-7.4 3.1-7.9 7H15a1 1 0 0 0-1 1v16a1 1 0 0 0 1 1h18a1 1 0 0 0 1-1V16a1 1 0 0 0-1-1h-1.1C31.4 11.1 28.1 8 24 8zm0 2.5c2.8 0 5.1 2 5.5 4.5h-11c.4-2.5 2.7-4.5 5.5-4.5zM16 17h16v14H16V17z" fill="white"/>
+        </svg>
+      </span>
+      <span class="label">Shopee — Minha Vitrine<br><span class="sub">Acessórios de perfumaria</span></span>
+    </a>
 
     <!-- TikTok Shop — expansível -->
     <div class="expand-wrap">
@@ -335,7 +335,10 @@ function copiar(btn, codigo) {
   navigator.clipboard.writeText(codigo).then(function() {
     btn.textContent = 'Copiado!';
     btn.classList.add('copiado');
-    setTimeout(function() { btn.textContent = 'Copiar'; btn.classList.remove('copiado'); }, 2000);
+    setTimeout(function() {
+      btn.textContent = 'Copiar';
+      btn.classList.remove('copiado');
+    }, 2000);
   });
 }
 
@@ -347,29 +350,78 @@ function expandir(btn, painelId) {
   btn.setAttribute('aria-expanded', String(!aberto));
 }
 
+function placeholder(nome) {
+  var canvas = document.createElement('canvas');
+  canvas.width = 200;
+  canvas.height = 200;
+  var ctx = canvas.getContext('2d');
+  ctx.fillStyle = '#E5E0D6';
+  ctx.fillRect(0, 0, 200, 200);
+  ctx.font = '52px serif';
+  ctx.textAlign = 'center';
+  ctx.globalAlpha = 0.18;
+  ctx.fillText('\uD83E\uDDF4', 100, 90);
+  ctx.globalAlpha = 0.65;
+  ctx.fillStyle = '#6B2737';
+  ctx.font = '300 13px Jost, sans-serif';
+  ctx.letterSpacing = '1px';
+  var palavras = nome.split(' ');
+  var linhas = [];
+  var linha = '';
+  palavras.forEach(function(p) {
+    if ((linha + ' ' + p).trim().length > 16) {
+      if (linha) linhas.push(linha.trim());
+      linha = p;
+    } else {
+      linha = (linha + ' ' + p).trim();
+    }
+  });
+  if (linha) linhas.push(linha.trim());
+  var y0 = 120 - (linhas.length - 1) * 9;
+  linhas.forEach(function(l, i) {
+    ctx.fillText(l, 100, y0 + i * 18);
+  });
+  return canvas.toDataURL();
+}
+
 function renderGrid(gridId, produtos, cta) {
   var grid = document.getElementById(gridId);
   if (!produtos || !produtos.length) {
     grid.innerHTML = '<p class="produtos-vazio">Em breve...</p>';
     return;
   }
-  grid.innerHTML = produtos.map(function(p) {
-    var thumb = p.foto
-      ? '<img src="' + p.foto + '" alt="' + p.nome + '" loading="lazy">'
-      : '<span class="sem-foto">&#128081;</span>';
-    return '<a href="' + p.link + '" class="produto-card" target="_blank" rel="noopener">'
-      + '<div class="produto-thumb">' + thumb + '</div>'
+  var html = '';
+  produtos.forEach(function(p) {
+    var thumbHtml;
+    if (p.foto) {
+      thumbHtml = '<img src="' + p.foto + '" alt="" loading="lazy">';
+    } else {
+      var ph = placeholder(p.nome);
+      thumbHtml = '<img src="' + ph + '" alt="">';
+    }
+    html += '<a href="' + p.link + '" class="produto-card" target="_blank" rel="noopener">'
+      + '<div class="produto-thumb">' + thumbHtml + '</div>'
       + '<div class="produto-info">'
       + '<span class="produto-nome">' + p.nome + '</span>'
       + '<span class="produto-cta">' + cta + '</span>'
       + '</div></a>';
-  }).join('');
+  });
+  grid.innerHTML = html;
 }
 
-fetch('produtos-tiktok.json')
-  .then(function(r) { return r.json(); })
-  .then(function(d) { renderGrid('grid-tiktok', d, 'Ver no TikTok Shop'); })
-  .catch(function() { renderGrid('grid-tiktok', [], ''); });
+var produtosTiktok = [
+  { nome: "Granado Bossa", foto: "fotos/granado-bossa.jpg", link: "https://vt.tiktok.com/ZS9BDDhaNak2d-PAvFz/" },
+  { nome: "Granado Carioca", foto: "fotos/granado-carioca.jpg", link: "https://vt.tiktok.com/ZS9BDDaeP58ho-iBUwa/" },
+  { nome: "Granado Esplendor", foto: "fotos/granado-esplendor.jpg", link: "https://vt.tiktok.com/ZS9BDDbRfsCXp-Jsq0v/" },
+  { nome: "Phebo Colônia Coco da Bahia", foto: "fotos/phebo-coco.jpg", link: "https://vt.tiktok.com/ZS9BDDo3FjmuD-rnDcd/" },
+  { nome: "Phebo Santalum", foto: "fotos/phebo-santalum.jpg", link: "https://vt.tiktok.com/ZS9BDUFrPsKBV-EueaS/" },
+  { nome: "Lab8 Effervescent", foto: "fotos/lab8-effervescent.jpg", link: "https://vt.tiktok.com/ZS9BDUb81nb8b-84NGZ/" },
+  { nome: "Natura Essencial Sentir Masc.", foto: "fotos/natura-sentir-masc.jpg", link: "https://vt.tiktok.com/ZS9BDUcdVLeeC-OcBgL/" },
+  { nome: "Natura Essencial Sentir Fem.", foto: "fotos/natura-sentir-fem.jpg", link: "https://vt.tiktok.com/ZS9BDUEny8RpG-KN8T0/" },
+  { nome: "Natura Una Blush", foto: "fotos/natura-una-blush.jpg", link: "https://vt.tiktok.com/ZS9BDyfCD1FeM-5Bhjn/" },
+  { nome: "Natura Essencial Atrai Masc.", foto: "fotos/natura-atrai-masc.jpg", link: "https://vt.tiktok.com/ZS9BDfFvn5Yq9-kxB6j/" }
+];
+renderGrid('grid-tiktok', produtosTiktok, 'Ver no TikTok Shop');
 </script>
 </body>
 </html>
